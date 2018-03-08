@@ -12,24 +12,33 @@ var cards = {
 
 function shuffleCards (gameBoard){
 
-	var newBoard = [];
-	var num = 0;
-	var randomCards;
-	var storeNumber = 0;
-	var boardLength = gameBoard.length;
-	while (num < boardLength) {
-	randomCards = Math.floor(Math.random() * 16);
-	storeNumber = randomCards;
-		if (randomCards !== storeNumber){
-			newBoard.push(randomCards);
-			console.log(newBoard);
-			num++;
-		}
+/*
+	Shuffles cards. Takes in gameBoard parameter with deck of cards.
+	Loops while current card is less than last card.
+	Starts at first card, picks random index from rest of cards.
+	swaps current card with random index card. Moves to next card
+	and repeat swapping with current card until up to last card.
+
+*/
+
+	var currentCard = 0;
+	var randomIndex;
+	var cardsLeft = gameBoard.length - currentCard;
+	var cardNumber
+
+	while (currentCard < gameBoard.length){
+		randomIndex = Math.floor(Math.random() * cardsLeft);
+		cardNumber = gameBoard[currentCard];
+		gameBoard[currentCard] = gameBoard[randomIndex];
+		gameBoard[randomIndex] = cardNumber;
+		currentCard++;
+
 	}
+	console.log(gameBoard);	
 }
 
 
-
+// jQuery function to test function by clicking squares
 $(document).ready(function() {
     // all custom jQuery will go here
 
