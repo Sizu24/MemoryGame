@@ -1,26 +1,35 @@
+// script file for Memory Game
+// 16 icons for each card on gameBoard
 
-// Game board with 16 numbers. Rows 4 x 4
-var gameBoard = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16];
+// Font Awesome code to next class names within <i>
+FontAwesomeConfig = { autoReplaceSvg: 'nest' }
 
+gameBoard = ["fab fa-playstation",
+"fas fa-arrow-circle-left",
+"fab fa-apple",
+"fas fa-football-ball",
+"far fa-heart",
+"fab fa-fort-awesome-alt",
+"fas fa-coffee",
+"fas fa-basketball-ball",
+"fas fa-football-ball",
+"fas fa-arrow-circle-left",
+"fab fa-fort-awesome-alt",
+"fab fa-playstation",
+"fab fa-apple",
+"far fa-heart",
+"fas fa-basketball-ball",
+"fas fa-coffee"];
 
-var cards = {
-	cardNumber: 1,
-	cardNumber: 2,
-	cardNumber: 3,
-	cardNumber: 4,
-}
-
+// do this every new game
 function shuffleCards (gameBoard){
-
 /*
 	Shuffles cards. Takes in gameBoard parameter with deck of cards.
 	Loops while current card is less than last card.
 	Starts at first card, picks random index from rest of cards.
 	swaps current card with random index card. Moves to next card
 	and repeat swapping with current card until up to last card.
-
 */
-
 	var currentCard = 0;
 	var randomIndex;
 	var cardsLeft = gameBoard.length - currentCard;
@@ -32,32 +41,36 @@ function shuffleCards (gameBoard){
 		gameBoard[currentCard] = gameBoard[randomIndex];
 		gameBoard[randomIndex] = cardNumber;
 		currentCard++;
-
 	}
-	console.log(gameBoard);	
+
 }
 
 
-// jQuery function to test function by clicking squares
+ // jQuery section
 $(document).ready(function() {
-    // all custom jQuery will go here
 
-    $(".card").click(function(){
+    // pick elements, list items
+  	var listClass = $("ul").children();
+  	// icon class names
+  	var iconClass = listClass.find("i");
+
+  	var newDeck;
+    // Click test function
+    $(".card").click(function clickCard(){
     	shuffleCards(gameBoard);
-    	
-;
-    })
+
+    // change class names on icon list in HTML to shuffled array
+		$(iconClass).each(function(index){
+
+    		$(this).attr("class", gameBoard[index]);
+    		
+    	})
+    		
+		// console test
+    	console.log(listClass);
+ 	
 
 	});	
-
-// shuffle numbers
-// add numbers to list
-// if number is same keep shuffling
-
-// player picks card 1, flip card over
-// player pics card 2, flip card over
-
-// if card 1 === card 2, match === true
-
-// if match === true, keep cards turned.
-// if match === false, flip cards over.
+ 		
+   	
+})
