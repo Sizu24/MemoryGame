@@ -81,7 +81,7 @@ h1 {
   width: 150px;
   margin: 25px 25px;
   box-shadow: 5px 2px 20px;
-  font-size: 35px;
+  font-size: 0px;
   /*justify content puts icons in the middle*/
   justify-content: center;
   /*align-items directly centers icons*/
@@ -95,6 +95,8 @@ h1 {
   width: 150px;
   margin: 25px 25px;
   background-color: #374658;
+  font-size: 35px;
+  transform: rotateY(360deg);
 }
 ul {
 
