@@ -1,9 +1,14 @@
 // script file for Memory Game
-// 16 icons for each card on gameBoard
+
+// Global variables
+var clickOne = 1;
+var clickTwo = 1;
+
 
 // Font Awesome code to next class names within <i>
 FontAwesomeConfig = { autoReplaceSvg: 'nest' }
 
+// 16 icon names for each card on gameBoard
 gameBoard = ["fab fa-playstation",
 "fas fa-arrow-circle-left",
 "fab fa-apple",
@@ -46,31 +51,91 @@ function shuffleCards (gameBoard){
 }
 
 
- // jQuery section
-$(document).ready(function() {
+// jQuery section
+//$(document).ready(function() {
 
-    // pick elements, list items
+	var cardNameOne;
+	var cardNameTwo;
+	var twoCards = [];
+	// pick elements, list items
   	var listClass = $("ul").children();
   	// icon class names
   	var iconClass = listClass.find("i");
 
-  	var newDeck;
-    // Click test function
-    $(".card").click(function clickCard(){
-    	shuffleCards(gameBoard);
+    // Click card function. All action happens when card clicked
+//    $(".card").click(function clickCard(){
 
-    // change class names on icon list in HTML to shuffled array
-		$(iconClass).each(function(index){
+    	
+    	// flip first card
+//    function flipCardOne(){
+    	$(listClass).click(function pickCardOne(){
 
-    		$(this).attr("class", gameBoard[index]);
-    		
-    	})
-    		
-		// console test
-    	console.log(listClass);
- 	
+    		/*
+				On click of first card, flips the card around and displays icon.
+				clickOne equals 1 before click of card, an reduces to 0 after click.
+				After card is clicked, adds class "flipped" to HTML file next to li.
+				Assigns the file name of icon to cardNameOne.
+				Adds file name of icon to empty list "twoCards",
+    		*/
+  
+    		var cardPickOne;
+  
+ 	   		if (clickOne > 0){
+   				// add "flipped" class to card that is clicked
+				cardPickOne = $(this).addClass("flipped");
+				// assign icon name of card to cardNameOne
+				cardNameOne = cardPickOne.find("svg");
+				twoCards.push(cardNameOne);	
+    			clickOne--;	
+   	 		}	
+   		})
+//   	}
+    // flip second card
+//    function flipCardTwo(){
 
-	});	
- 		
-   	
+  		$(listClass).click(function pickCardTwo(){
+
+   			/*
+				On click of second card, flips the card around and displays icon.
+				clickTwo equals 1 before click of card, an reduces to 0 after click.
+				After card is clicked, adds class "flipped" to HTML file next to li.
+				Assigns the file name of icon to cardNameTwo.
+				Adds file name of icon to end of list "twoCards".
+    		*/
+
+    		var cardPickTwo;
+
+    		if (clickTwo >= 0){
+    			// add "flipped" class to card that is clicked
+   				cardPickTwo = $(this).addClass("flipped");
+   				// assign icon name of card to cardNameTwo
+    			cardNameTwo = cardPickTwo.find("svg");
+    			twoCards.push(cardNameTwo);	
+    	   		clickTwo--;	
+   			}
+   		})
+
+//   	}
+		
+
+    // close bracket for clickCard function
+//	});	
+
+
+// close bracket for document ready function
+//})
+
+// shuffle cards
+shuffleCards(gameBoard);
+// change class names in icon list on HTML file to shuffled gameBoard names
+$(iconClass).each(function(index){
+	$(this).attr("class", gameBoard[index]);
 })
+
+$(".gameboard").click(function () {
+
+	console.log(twoCards);
+
+})
+
+
