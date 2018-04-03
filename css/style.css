@@ -81,7 +81,7 @@ h1 {
   width: 150px;
   margin: 25px 25px;
   box-shadow: 5px 2px 20px;
-  font-size: 0px;
+  font-size: 20px;
   /*justify content puts icons in the middle*/
   justify-content: center;
   /*align-items directly centers icons*/

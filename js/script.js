@@ -1,9 +1,14 @@
 // script file for Memory Game
 
 // Global variables
-var clickOne = 1;
-var clickTwo = 1;
-
+var clickOne = 2;
+var cardNameOne;
+var cardNameTwo;
+var twoCards = [];
+// pick elements, list items
+var listClass = $("ul").children();
+// icon class names
+var iconClass = listClass.find("i");
 
 // Font Awesome code to next class names within <i>
 FontAwesomeConfig = { autoReplaceSvg: 'nest' }
@@ -26,6 +31,25 @@ gameBoard = ["fab fa-playstation",
 "fas fa-basketball-ball",
 "fas fa-coffee"];
 
+iconNames = ["playstation",
+"arrow",
+"apple",
+"football",
+"heart",
+"fort",
+"coffee",
+"basketball",
+"football",
+"arrow",
+"fort",
+"playstation",
+"apple",
+"heart",
+"basketball",
+"coffee"];
+
+myvar = [];
+
 // do this every new game
 function shuffleCards (gameBoard){
 /*
@@ -38,82 +62,57 @@ function shuffleCards (gameBoard){
 	var currentCard = 0;
 	var randomIndex;
 	var cardsLeft = gameBoard.length - currentCard;
-	var cardNumber
+	var cardNumber;
+	var iconNumber;
 
 	while (currentCard < gameBoard.length){
 		randomIndex = Math.floor(Math.random() * cardsLeft);
 		cardNumber = gameBoard[currentCard];
+		iconNumber = iconNames[currentCard];
 		gameBoard[currentCard] = gameBoard[randomIndex];
+		iconNames[currentCard] = iconNames[randomIndex];
 		gameBoard[randomIndex] = cardNumber;
+		iconNames[randomIndex] = iconNumber;
 		currentCard++;
 	}
 
 }
 
-
 // jQuery section
 //$(document).ready(function() {
-
-	var cardNameOne;
-	var cardNameTwo;
-	var twoCards = [];
-	// pick elements, list items
-  	var listClass = $("ul").children();
-  	// icon class names
-  	var iconClass = listClass.find("i");
 
     // Click card function. All action happens when card clicked
 //    $(".card").click(function clickCard(){
 
-    	
+   	
     	// flip first card
-//    function flipCardOne(){
-    	$(listClass).click(function pickCardOne(){
 
-    		/*
-				On click of first card, flips the card around and displays icon.
-				clickOne equals 1 before click of card, an reduces to 0 after click.
-				After card is clicked, adds class "flipped" to HTML file next to li.
-				Assigns the file name of icon to cardNameOne.
-				Adds file name of icon to empty list "twoCards",
-    		*/
-  
-    		var cardPickOne;
-  
- 	   		if (clickOne > 0){
-   				// add "flipped" class to card that is clicked
-				cardPickOne = $(this).addClass("flipped");
-				// assign icon name of card to cardNameOne
-				cardNameOne = cardPickOne.find("svg");
-				twoCards.push(cardNameOne);	
-    			clickOne--;	
-   	 		}	
-   		})
+$(listClass).click(function pickCardOne(){
+
+   	/*
+		On click of second card, flips the card around and displays icon.			clickTwo equals 1 before click of card, an reduces to 0 after click.
+		After card is clicked, adds class "flipped" to HTML file next to li.
+		Assigns the file name of icon to cardNameTwo.
+		Adds file name of icon to end of list "twoCards".
+   	*/
+
+	var cardPickOne;
+
+   	if (clickOne > 0) {
+  	// add "flipped" class to card that is clicked
+  	cardPickOne = $(this).addClass("flipped");
+  	// assign icon name of card to cardNameTwo
+   	//cardNameOne = cardPickOne.find("svg, id");
+    cardNameOne = $(this).attr("id");
+    twoCards.push(cardNameOne);
+   	console.log(twoCards[0] === twoCards[1]);
+   	//twoCards.push(cardNameOne);	
+   	clickOne--;
+   	}
+});
+   	
 //   	}
-    // flip second card
-//    function flipCardTwo(){
 
-  		$(listClass).click(function pickCardTwo(){
-
-   			/*
-				On click of second card, flips the card around and displays icon.
-				clickTwo equals 1 before click of card, an reduces to 0 after click.
-				After card is clicked, adds class "flipped" to HTML file next to li.
-				Assigns the file name of icon to cardNameTwo.
-				Adds file name of icon to end of list "twoCards".
-    		*/
-
-    		var cardPickTwo;
-
-    		if (clickTwo >= 0){
-    			// add "flipped" class to card that is clicked
-   				cardPickTwo = $(this).addClass("flipped");
-   				// assign icon name of card to cardNameTwo
-    			cardNameTwo = cardPickTwo.find("svg");
-    			twoCards.push(cardNameTwo);	
-    	   		clickTwo--;	
-   			}
-   		})
 
 //   	}
 		
@@ -125,17 +124,27 @@ function shuffleCards (gameBoard){
 // close bracket for document ready function
 //})
 
+
 // shuffle cards
 shuffleCards(gameBoard);
 // change class names in icon list on HTML file to shuffled gameBoard names
 $(iconClass).each(function(index){
 	$(this).attr("class", gameBoard[index]);
-})
+});
 
+$(listClass).each(function(index){
+
+	$(this).attr("id", iconNames[index]);
+
+});
+	
+
+
+/*
 $(".gameboard").click(function () {
 
 	console.log(twoCards);
 
 })
-
+*/
 
