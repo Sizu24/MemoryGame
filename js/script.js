@@ -1,10 +1,12 @@
 // script file for Memory Game
 
 // Global variables
-var clickOne = 2;
-var cardNameOne;
-var cardNameTwo;
+var win = false;
+var clicksRemaining = 2;
+var cardId;
 var twoCards = [];
+var openCardNames = [];
+var correctCards = [];
 // pick elements, list items
 var listClass = $("ul").children();
 // icon class names
@@ -48,8 +50,6 @@ iconNames = ["playstation",
 "basketball",
 "coffee"];
 
-myvar = [];
-
 // do this every new game
 function shuffleCards (gameBoard){
 /*
@@ -78,52 +78,90 @@ function shuffleCards (gameBoard){
 
 }
 
-// jQuery section
-//$(document).ready(function() {
+function checkWin(){
 
-    // Click card function. All action happens when card clicked
-//    $(".card").click(function clickCard(){
+	if(correctCards.length===16){
 
-   	
-    	// flip first card
+		console.log("You win!");
+		win = true;
+		return win;
 
+	}else{
+
+		return win;
+	}
+
+};
+
+function removeCards(){
+
+	twoCards.splice(0, 2);
+	openCardNames.splice(0, 2);
+
+};
+
+function cardsMatch(){
+
+			var idNameOne = document.getElementById(twoCards[0]);
+   			var idNameTwo = document.getElementById(twoCards[1]);
+
+	if(twoCards.length === 2){
+
+   		if(twoCards[0] === twoCards[1]){
+   			
+   			console.log("match!");
+   			clicksRemaining = 2;
+   			$(openCardNames[0]).addClass("correct");
+   			$(openCardNames[1]).addClass("correct");
+   			correctCards.push(openCardNames[0], openCardNames[1]);
+   			console.log(correctCards);
+   			removeCards();
+   		
+   		}else{
+
+   			console.log("try again");
+   			// flip cards back after 2 seconds
+   			setTimeout(function(){
+
+   				$(listClass).removeClass("flipped");
+
+   			}, 1000);
+   			
+   			clicksRemaining = 2;
+   			removeCards();
+   		}
+   	}
+
+
+};
+
+// flip cards
 $(listClass).click(function pickCardOne(){
 
    	/*
 		On click of second card, flips the card around and displays icon.			clickTwo equals 1 before click of card, an reduces to 0 after click.
 		After card is clicked, adds class "flipped" to HTML file next to li.
 		Assigns the file name of icon to cardNameTwo.
-		Adds file name of icon to end of list "twoCards".
+		Adds file name of icon to end of list "twoCardhttps://www.udacity.com/course/data-scientist-nanodegree--nd025s".
    	*/
 
-	var cardPickOne;
+	var cardFullName;
 
-   	if (clickOne > 0) {
+   	if (clicksRemaining > 0 && win === false) {
   	// add "flipped" class to card that is clicked
-  	cardPickOne = $(this).addClass("flipped");
+  	//cardPickOne = $(this).addClass("flipped");
   	// assign icon name of card to cardNameTwo
    	//cardNameOne = cardPickOne.find("svg, id");
-    cardNameOne = $(this).attr("id");
-    twoCards.push(cardNameOne);
-   	console.log(twoCards[0] === twoCards[1]);
-   	//twoCards.push(cardNameOne);	
-   	clickOne--;
-   	}
+    	cardId = $(this).addClass("flipped").attr("id");
+    	cardFullName = $(this);
+    	openCardNames.push(cardFullName);
+    	twoCards.push(cardId);
+   		clicksRemaining--;
+   		cardsMatch();
+   		checkWin();
+   	};
+   
 });
-   	
-//   	}
-
-
-//   	}
-		
-
-    // close bracket for clickCard function
-//	});	
-
-
-// close bracket for document ready function
-//})
-
 
 // shuffle cards
 shuffleCards(gameBoard);
@@ -138,13 +176,4 @@ $(listClass).each(function(index){
 
 });
 	
-
-
-/*
-$(".gameboard").click(function () {
-
-	console.log(twoCards);
-
-})
-*/
 
