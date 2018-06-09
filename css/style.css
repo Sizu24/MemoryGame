@@ -90,14 +90,14 @@ button {
   width: 150px;
   margin: 25px 25px;
   box-shadow: 5px 2px 20px;
-  font-size: 20px;
+  color: #2F3C40;
   /*justify content puts icons in the middle*/
   justify-content: center;
   /*align-items directly centers icons*/
   align-items: center;
   background: #2F3C40;
-  transform: rotateY(180deg);
-
+  --webkit-transform: rotateY(180deg);
+  --moz-transform: rotateY(180deg);
 }
 .flipped {
 
@@ -107,7 +107,9 @@ button {
   margin: 25px 25px;
   background-color: #374658;
   font-size: 35px;
-  transform: rotateY(360deg);
+  color: black;
+  --webkit-transform: rotateY(180deg);
+  --moz-transform: rotateY(180deg);
 
 }
 .correct {
@@ -117,6 +119,7 @@ button {
   width: 150px;
   margin: 25px 25px;
   background-color: #374658;
+  color: blue;
   font-size: 35px;
   transform: rotateY(360deg);
 

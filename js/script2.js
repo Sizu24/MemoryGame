@@ -102,9 +102,9 @@ resetSelector.addEventListener("click", function(){
 
 function removeCards(){
 
-  $(liSelector).removeClass("flipped");
-    pickedCards = [];
-    openCards = [];
+  var flipBack = $(liSelector).removeClass("flipped");
+  pickedCards = [];
+  openCards = [];
 
 }
 
@@ -114,13 +114,15 @@ function checkCards(cards){
 
     $(pickedCards[0]).addClass("correct");
     $(pickedCards[1]).addClass("correct");
-    removeCards();
+    pickedCards = [];
+    openCards = [];
+    
     
 
   }else{
 
     console.log("try again");
-    removeCards();
+    setTimeout(removeCards, 700);
 
   }
 }
