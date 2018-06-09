@@ -7,6 +7,9 @@ var openCards = [];
 var liSelector = $("li");
 var iSelector = $("i");
 var resetSelector = document.querySelector("#reset");
+var playerOneScore = 0;
+var playerTwoScore = 0;
+var playerOneTurn;
 
 // Font Awesome code to next class names within <i>
 FontAwesomeConfig = { autoReplaceSvg: 'nest' }
@@ -46,11 +49,13 @@ iconNames = ["playstation",
 "basketball",
 "coffee"];
 
-//reset button
+init();
 
-resetGame();
+function init(){
 
+  resetGame();
 
+}
 
 function shuffleCards (){
 /*
@@ -85,21 +90,24 @@ function shuffleCards (){
     $(this).attr("id", iconNames[card]);
   });
 }
+function playerToggle(){
 
+  $("#player1").toggleClass("selected");
+  $("#player2").toggleClass("selected");
+  console.log(playerOneTurn = $("#player1").attr("class"));
+
+}
+function playerScores(){
+
+  $("#score1").text(playerOneScore);
+  $("#score2").text(playerTwoScore);
+
+}
 function resetGame(){
 
   shuffleCards();
 
 }
-
-//reset button
-resetSelector.addEventListener("click", function(){
-
-  resetGame();
-
-})
-
-
 function removeCards(){
 
   var flipBack = $(liSelector).removeClass("flipped");
@@ -112,18 +120,20 @@ function checkCards(cards){
 
   if(cards[0] === cards[1]){
 
+    $("#message").text("Correct!");
     $(pickedCards[0]).addClass("correct");
     $(pickedCards[1]).addClass("correct");
     pickedCards = [];
     openCards = [];
-    
-    
+    playerToggle();
+    playerOneTurn === "selected" ? playerTwoScore++ : playerOneScore++;
+    playerScores();
 
   }else{
 
-    console.log("try again");
+    $("#message").text("Try Again");
     setTimeout(removeCards, 700);
-
+    playerToggle();
   }
 }
 
@@ -134,15 +144,10 @@ $(liSelector).on("click", function(){
     pickedCards.push($(this).addClass("flipped"));
     cardName = $(this).attr("id");
     openCards.push(cardName);
-
+    $("#message").text("Choose another card");
     if(openCards.length === 2){
       checkCards(openCards);  
     }
   }
 });
 
-//click cards
-//push cards to openCards
-//check if match
-//if match, keep cards open
-//remove from openCards
