@@ -2,10 +2,10 @@
 
 * {
 
-box-sizing: border-box;
--webkit-box-sizing: border-box;
--moz-box-sizing: border-box;
--ms-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
 
 }
 body {
@@ -58,20 +58,40 @@ button:hover {
   background: #2F3C40;
 
 }
+ul {
+
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+
+}
 #reset {
 
   float: left;
-  margin: 0 20px;
+  margin: 0 5%;
+
+}
+#player2 {
+
+  float: left;
+  margin: 0 5%;
+
+}
+#player1 {
+  
+  float: left;
+  margin: 0 5%;
 
 }
 #message {
-
+  float: left;
   width: 20%;
   display: inline-block;
   color: black;
-  margin: 0 10%;
   font-family: 'Open Sans', sans-serif;
-  text-align: center;
+  line-height: 100%;
+  padding-top: 7px;
+  margin: 0 5%;
 
 }
 .selected {
@@ -93,7 +113,6 @@ button:hover {
   flex-wrap: wrap;
 
 }
-
 .card {
 
   border-radius: 10px;
@@ -108,8 +127,8 @@ button:hover {
   /*align-items directly centers icons*/
   align-items: center;
   background: #2F3C40;
-  --webkit-transform: rotateY(180deg);
-  --moz-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+
 }
 .card svg {
 
@@ -123,8 +142,9 @@ button:hover {
   width: 150px;
   margin: 25px 25px;
   background-color: #374658;
-  --webkit-transform: rotateY(180deg);
-  --moz-transform: rotateY(180deg);
+  transform: rotateY(360deg);
+  transition: transform 0.4s;
+
 
 }
 .flipped svg {
@@ -147,12 +167,5 @@ button:hover {
 .correct svg{
 
   display: inline-block;
-
-}
-ul {
-
-  margin: 0px;
-  border: 0px;
-  padding: 0px;
 
 }

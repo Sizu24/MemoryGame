@@ -11,7 +11,10 @@ var cardPosition = [];
 var playerOneScore = 0;
 var playerTwoScore = 0;
 var playerOneTurn;
-var win = playerOneScore + playerTwoScore;
+var totalCards = 0;
+var playerOne;
+var playerTwo;
+
 
 // Font Awesome config
 FontAwesomeConfig = { autoReplaceSvg: 'false' }
@@ -57,9 +60,10 @@ function init(){
 
   shuffleCards();
   assignCards();
-  chooseCard();
+
 }
 function shuffleCards (){
+
 /*
   Shuffles cards. Takes in gameBoard parameter with deck of cards.
   Loops while current card is less than last card.
@@ -67,6 +71,7 @@ function shuffleCards (){
   swaps current card with random index card. Moves to next card
   and repeat swapping with current card until up to last card.
 */
+
   var currentCard = 0;
   var randomIndex;
   var cardsLeft = gameBoard.length - currentCard;
@@ -86,6 +91,12 @@ function shuffleCards (){
 }
 function assignCards(){
 
+  /*
+    After shuffle cards is complete, this function
+    assigns the shuffled cards and matching icon names
+    to i selector and li selector on HTML
+  */
+
   $(iSelector).each(function(card){
     $(this).addClass(gameBoard[card]);
   });
@@ -96,12 +107,14 @@ function assignCards(){
 
 }
 function playerToggle(){
+
   /*
     Toggles class "selected" between player 1 id
     and player 2 id to pick who's turn it is.
     Assigns class name to playerOneTurn to use in 
     function to see who's turn it is.
   */
+
   $("#player1").toggleClass("selected");
   $("#player2").toggleClass("selected");
   playerOneTurn = $("#player1").attr("class");
@@ -116,28 +129,35 @@ function playerScores(){
 
   $("#score1").text(playerOneScore);
   $("#score2").text(playerTwoScore);
+  playerOne = $("#score1").text();
+  playerTwo = $("#score2").text();
 
 }
 function winner(){
 
-    if(playerOneScore > playerTwoScore){
+  if( playerOne === playerTwo ){
 
-      $("#message").text("PLAYER ONE WINS!!!")
+    $("#message").text("IT'S A TIE!!!");
 
-    }else if(playerOneScore < playerTwoScore){
+  }else if(playerOne < playerTwo){
 
-      $("#message").text("PLAYER TWO WINS!!!")
+    $("#message").text("PLAYER TWO WINS!!!");
 
-    }else{
+  }else{
 
-      $("#message").text("IT'S A TIE!!!")
+    $("#message").text("PLAYER ONE WINS!!!");
 
-    }
+  }
 
 }
 $("#reset").on("click", function(){
 
-    resetGame;
+    /*
+      Reloads game when New Game button is pressed
+    */
+
+    location.reload();
+
 });
 
 function resetGame(){
@@ -159,6 +179,7 @@ function removeCards(){
   var flipBack = $(liSelector).removeClass("flipped");
   pickedCards = [];
   openCards = [];
+  $("#message").text("Choose a card");
 
 }
 function checkCards(cards){
@@ -171,12 +192,10 @@ function checkCards(cards){
     Toggles turn to other player.
     Adds score to player who's turn it is
     Displays the scores.
-    Checks if there is a winner.
   */
 
   if(cards[0] === cards[1]){
 
-    $("#message").text("Correct!");
     $(pickedCards[0]).addClass("correct");
     $(pickedCards[1]).addClass("correct");
     pickedCards = [];
@@ -184,7 +203,8 @@ function checkCards(cards){
     playerToggle();
     playerOneTurn === "selected" ? playerTwoScore++ : playerOneScore++;
     playerScores();
-    win === 8 ? winner(): chooseCard();
+    totalCards++;
+    totalCards === 8 ? winner(): $("#message").text("Correct!");
 
   }else{
 
@@ -195,11 +215,12 @@ function checkCards(cards){
       Toggles turn to other player.
     */
 
-    $("#message").text("Try Again");
+    $("#message").text("No Match!");
     setTimeout(removeCards, 700);
     playerToggle();
 
   }  
+
 }//end of checkCards function
 function checkSame(){
 
@@ -207,9 +228,8 @@ function checkSame(){
     Checks to see if same card was clicked twice. If so,
     takes second card off openCards list and pickedCards
     list to let user choose a different card.
-
-
   */
+
   if(cardPosition[0] === cardPosition[1]){
 
     console.log("SAME");
@@ -226,12 +246,9 @@ function checkSame(){
   }
 
 }
-function chooseCard(){
-  $("#message").text("Choose a card");
-
   $(liSelector).on("click", function(){
 
-    /*
+     /*
       Click listener to see if card is clicked.
       Pushes clicked cards to empty array pickedCards.
       Picked Cards holds value of position of card.
@@ -251,7 +268,8 @@ function chooseCard(){
       $("#message").text("Choose another card");
       if(openCards.length === 2){
         checkSame();  
+
       }
     }
+
   });
-}
