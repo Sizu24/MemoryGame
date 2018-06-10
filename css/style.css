@@ -29,6 +29,7 @@ h1 {
   color: white;
   text-align: center;
   margin: 0px;
+  padding: 30px 0;
 
 }
 #stripe {
@@ -36,7 +37,7 @@ h1 {
   text-align: center;
   margin-bottom: 5px;
   height: 30px;
-  background-color: #232323;
+  background-color: white;
 
 
 }
@@ -45,41 +46,38 @@ button {
   background: none;
   border: 0;
   font-size: inherit;
-  color: white;
+  color: black;
   height: 100%;
   outline: none;
   transition: all 0.6s;
-
 
 }
 button:hover {
 
   color: white;
-  background: #376c72;
+  background: #2F3C40;
+
+}
+#reset {
+
+  float: left;
+  margin: 0 20px;
 
 }
 #message {
 
   width: 20%;
   display: inline-block;
-  color: white;
-  margin-left: 10%;
-
-}
-#player1 {
-
-  margin-right: 10%;
-
-}
-#player2 {
-
-  margin-left: 10%;
+  color: black;
+  margin: 0 10%;
+  font-family: 'Open Sans', sans-serif;
+  text-align: center;
 
 }
 .selected {
 
-  background: #376c72;
-  color: 376c72;
+  background: #2F3C40;
+  color: white;
 
 }
 .gameboard {
@@ -93,8 +91,9 @@ button:hover {
   background: linear-gradient(200deg, #11D9C5 5%, #10485B 100%);
   /*flex-wrap wraps cards around instead of going down in just 1 line of cards*/
   flex-wrap: wrap;
-  float: left;
+
 }
+
 .card {
 
   border-radius: 10px;
@@ -103,7 +102,7 @@ button:hover {
   width: 150px;
   margin: 25px 25px;
   box-shadow: 5px 2px 20px;
-  color: #2F3C40;
+  font-size: 35px;
   /*justify content puts icons in the middle*/
   justify-content: center;
   /*align-items directly centers icons*/
@@ -112,7 +111,11 @@ button:hover {
   --webkit-transform: rotateY(180deg);
   --moz-transform: rotateY(180deg);
 }
+.card svg {
 
+  display: none;
+
+}
 .flipped {
 
   display: flex;
@@ -120,10 +123,13 @@ button:hover {
   width: 150px;
   margin: 25px 25px;
   background-color: #374658;
-  font-size: 35px;
-  color: black;
   --webkit-transform: rotateY(180deg);
   --moz-transform: rotateY(180deg);
+
+}
+.flipped svg {
+
+  display: inline-block;
 
 }
 .correct {
@@ -133,9 +139,14 @@ button:hover {
   width: 150px;
   margin: 25px 25px;
   background-color: #374658;
-  color: blue;
+  color: white;
   font-size: 35px;
   transform: rotateY(360deg);
+
+}
+.correct svg{
+
+  display: inline-block;
 
 }
 ul {
