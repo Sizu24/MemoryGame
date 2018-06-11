@@ -12,7 +12,7 @@ var cardPosition = [];
 var playerOneScore = 0;
 var playerTwoScore = 0;
 var playerOneTurn;
-var totalCards = 12;
+var totalCards = 0;
 var playerOneScoreDisplay;
 var playerTwoScoreDisplay;
 var minutes = 0.;
@@ -61,6 +61,7 @@ iconNames = ["playstation",
 "basketball",
 "coffee"];
 
+init();
 
 function init(){
   
@@ -350,7 +351,6 @@ function checkSame(){
   }
 
 }
-init();
 // card event listener
 $(liSelector).on("click", function(){
 

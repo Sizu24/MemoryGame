@@ -1,5 +1,4 @@
 /* CSS Stylesheet */
-
 * {
 
   box-sizing: border-box;
@@ -14,31 +13,16 @@ body {
   margin: 0;
 
 }
-.container {
-
-  max-width: 800px;
-  margin: 20px auto;
-
-}
 h1 {
 
   background: #232323;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'open sans', sans-serif;
   font-size: 50px;
   font-weight: 200;
   color: white;
   text-align: center;
   margin: 0px;
   padding: 30px 0;
-
-}
-#stripe {
-
-  text-align: center;
-  margin-bottom: 0px;
-  margin-top: 0px;
-  height: 30px;
-  background-color: white;
 
 }
 ul {
@@ -62,55 +46,16 @@ button {
 button:hover {
 
   color: white;
-  background: #2F3C40;
+  background: #2f3c40;
 
 }
-#reset {
 
-  float: left;
-  margin: 0 5%;
+/*Classes*/
 
-}
-#player1 {
-  
-  float: left;
-  margin: 0 5%;
+.container {
 
-}
-#player2 {
-
-  float: left;
-  margin: 0 5%;
-
-}
-#message {
-  float: left;
-  width: 20%;
-  display: inline-block;
-  color: black;
-  font-family: 'Open Sans', sans-serif;
-  line-height: 100%;
-  padding-top: 7px;
-  margin: 0 5%;
-
-}
-#gameTimer {
-
-  float: left;
-  width: 10%;
-  height: 100%;
-  color: black;
-  font-size: 20px;
-  letter-spacing: 2px;
-  font-weight: 600;
-  padding-top: 4px;
-  font-family: 'Open Sans', sans-serif;
-
-}
-.selected {
-
-  background: #2F3C40;
-  color: white;
+  max-width: 800px;
+  margin: 20px auto;
 
 }
 .gameboard {
@@ -121,29 +66,31 @@ button:hover {
   display: flex;
   width: 800px;
   height: 800px;
-  background: linear-gradient(200deg, #11D9C5 5%, #10485B 100%);
+  background: linear-gradient(200deg, #11d9c5 5%, #10485b 100%);
   /*flex-wrap wraps cards around instead of going down in just 1 line of cards*/
   flex-wrap: wrap;
 
 }
+.selected {
+
+  background: #2f3c40;
+  color: white;
+
+}
 .starsTwo {
 
-  margin-top: 5px;
-  margin-bottom: 5px;
   color: orange;
   float: right;
-  margin-right: 300px;
   font-size: 40px;
+  margin: 5px 300px 5px 0;
 
 }
 .starsOne {
 
-  margin-top: 5px;
-  margin-bottom: 5px;
   color: orange;
   float: left;
-  margin-left: 300px;
   font-size: 40px;
+  margin: 5px 0 5px 300px;
 
 }
 .card {
@@ -159,12 +106,12 @@ button:hover {
   justify-content: center;
   /*align-items directly centers icons*/
   align-items: center;
-  background: #2F3C40;
+  background: #2f3c40;
   transform: rotateY(180deg);
 
 }
 .card svg {
-
+  /*hides card icons*/
   display: none;
 
 }
@@ -177,7 +124,6 @@ button:hover {
   background-color: #374658;
   transform: rotateY(360deg);
   transition: transform 0.4s;
-
 
 }
 .flipped svg {
@@ -213,33 +159,43 @@ button:hover {
   border-right-width: 0px;
   padding: 50px;
   color: white;
-  background: linear-gradient(200deg, #11D9C5 5%, #10485B 100%);
+  background: linear-gradient(200deg, #11d9c5 5%, #10485b 100%);
   display: none;
+
+}
+
+/*ID's*/
+
+#stripe {
+
+  text-align: center;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  height: 30px;
+  background-color: white;
 
 }
 .winMessage {
 
-
   text-align: center;
   padding: 30px 30px 0 30px;
   font-size: 40px;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'open sans', sans-serif;
   font-weight: 800;
   list-style: none;
 
 }
 .winColor {
 
-  background: linear-gradient(200deg, #11D9C5 5%, #10485B 100%);
+  background: linear-gradient(200deg, #11d9c5 5%, #10485b 100%);
   transition: 1.5s;
 
 }
 .playAgain {
 
-
   margin: 10px 45%;
   font-size: 30px;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'open sans', sans-serif;
   font-weight: 800;
   color: black;
   background: white;
@@ -252,7 +208,48 @@ button:hover {
 .playAgain:hover {
 
   color: white;
-  background: #2F3C40;
+  background: #2f3c40;
 
 }
+#reset {
 
+  float: left;
+  margin: 0 5%;
+
+}
+#player1 {
+  
+  float: left;
+  margin: 0 5%;
+
+}
+#player2 {
+
+  float: left;
+  margin: 0 5%;
+
+}
+#message {
+  float: left;
+  width: 20%;
+  display: inline-block;
+  color: black;
+  font-family: 'open sans', sans-serif;
+  line-height: 100%;
+  padding-top: 7px;
+  margin: 0 5%;
+
+}
+#gameTimer {
+
+  float: left;
+  width: 10%;
+  height: 100%;
+  color: black;
+  font-size: 20px;
+  letter-spacing: 2px;
+  font-weight: 600;
+  padding-top: 4px;
+  font-family: 'open sans', sans-serif;
+
+}
