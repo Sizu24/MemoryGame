@@ -35,10 +35,17 @@ h1 {
 #stripe {
 
   text-align: center;
-  margin-bottom: 5px;
+  margin-bottom: 0px;
+  margin-top: 0px;
   height: 30px;
   background-color: white;
 
+}
+ul {
+
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
 
 }
 button {
@@ -58,20 +65,7 @@ button:hover {
   background: #2F3C40;
 
 }
-ul {
-
-  margin: 0px;
-  border: 0px;
-  padding: 0px;
-
-}
 #reset {
-
-  float: left;
-  margin: 0 5%;
-
-}
-#player2 {
 
   float: left;
   margin: 0 5%;
@@ -79,6 +73,12 @@ ul {
 }
 #player1 {
   
+  float: left;
+  margin: 0 5%;
+
+}
+#player2 {
+
   float: left;
   margin: 0 5%;
 
@@ -92,6 +92,19 @@ ul {
   line-height: 100%;
   padding-top: 7px;
   margin: 0 5%;
+
+}
+#gameTimer {
+
+  float: left;
+  width: 10%;
+  height: 100%;
+  color: black;
+  font-size: 20px;
+  letter-spacing: 2px;
+  font-weight: 600;
+  padding-top: 4px;
+  font-family: 'Open Sans', sans-serif;
 
 }
 .selected {
@@ -111,6 +124,26 @@ ul {
   background: linear-gradient(200deg, #11D9C5 5%, #10485B 100%);
   /*flex-wrap wraps cards around instead of going down in just 1 line of cards*/
   flex-wrap: wrap;
+
+}
+.starsTwo {
+
+  margin-top: 5px;
+  margin-bottom: 5px;
+  color: orange;
+  float: right;
+  margin-right: 300px;
+  font-size: 40px;
+
+}
+.starsOne {
+
+  margin-top: 5px;
+  margin-bottom: 5px;
+  color: orange;
+  float: left;
+  margin-left: 300px;
+  font-size: 40px;
 
 }
 .card {
@@ -169,3 +202,57 @@ ul {
   display: inline-block;
 
 }
+.winAlert {
+
+  margin-top: 0px;
+  height: 500px;
+  width: 100%;
+  margin: 0 auto 20px auto;
+  border-bottom: 3px solid white;
+  border-left-width: 0px;
+  border-right-width: 0px;
+  padding: 50px;
+  color: white;
+  background: linear-gradient(200deg, #11D9C5 5%, #10485B 100%);
+  display: none;
+
+}
+.winMessage {
+
+
+  text-align: center;
+  padding: 30px 30px 0 30px;
+  font-size: 40px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 800;
+  list-style: none;
+
+}
+.winColor {
+
+  background: linear-gradient(200deg, #11D9C5 5%, #10485B 100%);
+  transition: 1.5s;
+
+}
+.playAgain {
+
+
+  margin: 10px 45%;
+  font-size: 30px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 800;
+  color: black;
+  background: white;
+  width: 100px;
+  list-style: none;
+  border-radius: 10px;  
+  border: 0px;
+
+}
+.playAgain:hover {
+
+  color: white;
+  background: #2F3C40;
+
+}
+

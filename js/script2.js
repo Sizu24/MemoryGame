@@ -7,14 +7,21 @@ var openCards = [];
 var liSelector = $("li");
 var iSelector = $("i");
 var resetSelector = document.querySelector("#reset");
+var flipCardBack;
 var cardPosition = [];
 var playerOneScore = 0;
 var playerTwoScore = 0;
 var playerOneTurn;
-var totalCards = 0;
-var playerOne;
-var playerTwo;
-
+var totalCards = 12;
+var playerOneScoreDisplay;
+var playerTwoScoreDisplay;
+var minutes = 0.;
+var seconds = 0;
+var playerOneTries = 0;
+var playerTwoTries = 0;
+var starsPlayerOne = 3;
+var starsPlayerTwo = 3;
+var time;
 
 // Font Awesome config
 FontAwesomeConfig = { autoReplaceSvg: 'false' }
@@ -54,10 +61,15 @@ iconNames = ["playstation",
 "basketball",
 "coffee"];
 
-init();
 
 function init(){
+  
+  /*
+    Initialize game. Starts timer when game loads
+    Shuffles, and assigns card posistion and names.
+  */
 
+  gameTimer();
   shuffleCards();
   assignCards();
 
@@ -88,6 +100,7 @@ function shuffleCards (){
     iconNames[randomIndex] = iconNumber;
     currentCard++;
   }
+
 }
 function assignCards(){
 
@@ -106,6 +119,61 @@ function assignCards(){
   });
 
 }
+
+function gameTimer(){
+
+  /*
+    Starts a timer once the game starts.
+    Creates the time display.
+    Assigns text value of timer on main display to "time".
+  */
+
+  seconds++;
+  if(seconds > 59){
+
+    minutes++;
+    seconds = 0;
+
+  }
+  if(seconds < 10){
+
+    seconds = "0" + seconds;
+
+  }
+
+  $("#gameTimer").text(minutes + ":" + seconds);
+  time = $("#gameTimer").text();
+
+}
+
+function starRating(){
+
+  /*
+    Reduces stars on the display if player reaches
+    certain amount of tries. Also reduces star count
+    variable that shows on win stats.
+  */
+
+  if(playerOneTries > 6 || playerTwoTries > 6){
+
+    starsPlayerOne = 2;
+    starsPlayerTwo = 2;
+    $(".starsOne").html("&#9733; &#9733;");
+    $(".starsTwo").html("&#9733; &#9733;");
+
+    if(playerOneTries > 9 || playerTwoTries > 9){
+
+      starsPlayerOne = 1;
+      starsPlayerTwo = 1;
+      $(".starsOne").html("&#9733;");
+      $(".starsTwo").html("&#9733;");
+
+    }
+
+  }
+
+}
+
 function playerToggle(){
 
   /*
@@ -125,58 +193,90 @@ function playerScores(){
   /*
     Takes score from varibles and
     isplays them on main screen.
+    Assigns text value of score on screen
+    for each player.
   */
 
   $("#score1").text(playerOneScore);
   $("#score2").text(playerTwoScore);
-  playerOne = $("#score1").text();
-  playerTwo = $("#score2").text();
+  playerOneScoreDisplay = $("#score1").text();
+  playerTwoScoreDisplay = $("#score2").text();
+
+}
+function winnerAlert(){
+
+  /*    
+    Creates an alert after game is over, showing who won.
+    Changes h1 color, and displays to show 
+    winner and stats of game. Also asks players if
+    they want to play again.
+  */
+
+  $("h1").addClass("winColor");
+
+  $(".winAlert").html("<ul class='winMessage'>\
+  <li class='whoWins'></li>\
+  <li>Time: <span class='winTime'>0:00</span></li>\
+  <li>Stars: <span class='starCount'></span></li>\
+  <li>Moves: <span class='moveCounter'></span></li>\
+  </ul>\
+  <ul class='winMessage'>\
+  <li>Play Again?</li>\
+  <li><button class='playAgain'>Yes</button></li>\
+  </ul>").css("display", "block");
+
+  $(".playAgain").on("click", function(){
+    
+    location.reload();
+
+  });
 
 }
 function winner(){
 
-  if( playerOne === playerTwo ){
+  /*  
+    Checks if there is a winner. Displays
+    in message box who winner is, or if game
+    is a tie.
+  */
+  
+  winnerAlert();
+  clearInterval(timer);
 
-    $("#message").text("IT'S A TIE!!!");
+  if(playerOneScoreDisplay === playerTwoScoreDisplay){
 
-  }else if(playerOne < playerTwo){
+    $("#message, .whoWins").text("IT'S A TIE!!!");
+    $(".winTime").text(time);
 
-    $("#message").text("PLAYER TWO WINS!!!");
 
+  }else if(playerOneScoreDisplay < playerTwoScoreDisplay){
+
+    $("#message, .whoWins").text("PLAYER TWO WINS!!!");
+    $(".winTime").text(time);
+    $(".moveCounter").text(playerTwoTries);
+    $(".starCount").text(starsPlayerTwo);
+ 
   }else{
 
-    $("#message").text("PLAYER ONE WINS!!!");
+    $("#message, .whoWins").text("PLAYER ONE WINS!!!");
+    $(".winTime").text(time);
+    $(".moveCounter").text(playerOneTries);
+    $(".starCount").text(starsPlayerOne);
 
   }
-
-}
-$("#reset").on("click", function(){
-
-    /*
-      Reloads game when New Game button is pressed
-    */
-
-    location.reload();
-
-});
-
-function resetGame(){
-
-  shuffleCards();
-  assignCards();
 
 }
 function removeCards(){
 
   /*
     Removes flipped class to unflip cards.
-    Empties pickedCards array
-    Empteis openCards array
+    Clears pickedCards array
+    Clears openCards array
     pickedCard holds detatils of position
     openCards holds name of icon
   */
 
-  var flipBack = $(liSelector).removeClass("flipped");
+  flipCardBack = $(liSelector).removeClass("flipped");
   pickedCards = [];
   openCards = [];
   $("#message").text("Choose a card");
@@ -188,7 +288,7 @@ function checkCards(cards){
     Checks if two picked cards match.
     Adds class "correct" to each card if they
     match which leaves card face open.
-    Empties pickedCards and openCards arrays.
+    Clears pickedCards and openCards arrays.
     Toggles turn to other player.
     Adds score to player who's turn it is
     Displays the scores.
@@ -202,9 +302,11 @@ function checkCards(cards){
     openCards = [];
     playerToggle();
     playerOneTurn === "selected" ? playerTwoScore++ : playerOneScore++;
+    playerOneTurn === "selected" ? playerTwoTries++ : playerOneTries++;
+    starRating();
     playerScores();
-    totalCards++;
-    totalCards === 8 ? winner(): $("#message").text("Correct!");
+    totalCards+= 2;
+    totalCards === 16 ? winner(): $("#message").text("Correct!");
 
   }else{
 
@@ -218,6 +320,8 @@ function checkCards(cards){
     $("#message").text("No Match!");
     setTimeout(removeCards, 700);
     playerToggle();
+    playerOneTurn === "selected" ? playerTwoTries++ : playerOneTries++;
+    starRating();
 
   }  
 
@@ -246,30 +350,45 @@ function checkSame(){
   }
 
 }
-  $(liSelector).on("click", function(){
+init();
+// card event listener
+$(liSelector).on("click", function(){
 
-     /*
-      Click listener to see if card is clicked.
-      Pushes clicked cards to empty array pickedCards.
-      Picked Cards holds value of position of card.
-      Takes ID of clicked card and assigns to cardName
-      That ID holds name of icon which gets added to openCards
-      array. Shows message to choose another card after first
-      click. When two cards are in the openCards array,
-      runs checkCards function to compare cards.
+   /*
+    Click listener to see if card is clicked.
+    Pushes clicked cards to empty array pickedCards.
+    Picked Cards holds value of position of card.
+    Takes ID of clicked card and assigns to cardName
+    That ID holds name of icon which gets added to openCards
+    array. Shows message to choose another card after first
+    click. When two cards are in the openCards array,
+    runs checkCards function to compare cards.
+  */
+
+  if (openCards.length < 2) {
+
+    pickedCards.push($(this).addClass("flipped"));
+    cardPosition.push($(this).attr("class"));
+    cardName = $(this).attr("id");
+    openCards.push(cardName);
+    $("#message").text("Choose another card");
+    if(openCards.length === 2){
+      checkSame();  
+
+    }
+  }
+
+});
+// reset button event listenter
+$("#reset").on("click", function(){
+
+    /*
+      Reloads game when New Game button is pressed
     */
 
-    if (openCards.length < 2) {
+    location.reload();
 
-      pickedCards.push($(this).addClass("flipped"));
-      cardPosition.push($(this).attr("class"));
-      cardName = $(this).attr("id");
-      openCards.push(cardName);
-      $("#message").text("Choose another card");
-      if(openCards.length === 2){
-        checkSame();  
-
-      }
-    }
-
-  });
+});
+//starts timer function
+var timer = setInterval(gameTimer, 1000);
+timer;
