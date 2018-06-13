@@ -10,7 +10,7 @@
 body {
 
   background: #376c72;
-  margin: 0;
+  margin: 0 auto;
 
 }
 h1 {
@@ -163,18 +163,6 @@ button:hover {
   display: none;
 
 }
-
-/*ID's*/
-
-#stripe {
-
-  text-align: center;
-  margin-bottom: 0px;
-  margin-top: 0px;
-  height: 30px;
-  background-color: white;
-
-}
 .winMessage {
 
   text-align: center;
@@ -211,39 +199,63 @@ button:hover {
   background: #2f3c40;
 
 }
+/*ID's*/
+
+#stripe {
+
+  text-align: center;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  height: 30px;
+  background-color: white;
+
+}
 #reset {
 
   float: left;
-  margin: 0 5%;
+  margin: 0 20px 0 20px;
 
 }
 #player1 {
   
   float: left;
-  margin: 0 5%;
+  margin: 0 45px;
 
 }
 #player2 {
 
   float: left;
-  margin: 0 5%;
+  margin: 0 45px;
+
+}
+.movesBtnOne{
+
+  float: left;
+  margin: 0 45px;
+
+}
+.movesBtnTwo{
+
+  float: left;
+  margin: 0 45px;
+
 
 }
 #message {
   float: left;
-  width: 20%;
+  width: 15%;
   display: inline-block;
   color: black;
   font-family: 'open sans', sans-serif;
   line-height: 100%;
   padding-top: 7px;
-  margin: 0 5%;
+  margin: 0 40px;
 
 }
 #gameTimer {
 
   float: left;
-  width: 10%;
+  width: 5%;
   height: 100%;
   color: black;
   font-size: 20px;
@@ -251,5 +263,5 @@ button:hover {
   font-weight: 600;
   padding-top: 4px;
   font-family: 'open sans', sans-serif;
-
+  margin: 0 20px;
 }

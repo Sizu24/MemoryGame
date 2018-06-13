@@ -1,6 +1,9 @@
 // script file for Memory Game
 
 // Global variables
+var gameBoard =[];
+var cardSetOne = [];
+var cardSetTwo = [];
 var cardName;
 var pickedCards = [];
 var openCards = [];
@@ -15,7 +18,7 @@ var playerOneTurn;
 var totalCards = 0;
 var playerOneScoreDisplay;
 var playerTwoScoreDisplay;
-var minutes = 0.;
+var minutes = 0;
 var seconds = 0;
 var playerOneTries = 0;
 var playerTwoTries = 0;
@@ -24,18 +27,20 @@ var starsPlayerTwo = 3;
 var time;
 
 // Font Awesome config
-FontAwesomeConfig = { autoReplaceSvg: 'false' }
+FontAwesomeConfig = { autoReplaceSvg: 'false' };
 
 // 16 icon names for each card on gameBoard
-gameBoard = ["fab fa-playstation",
+
+cardSetOne = ["fab fa-playstation",
 "fas fa-arrow-circle-left",
 "fab fa-apple",
 "fas fa-football-ball",
 "far fa-heart",
 "fab fa-fort-awesome-alt",
 "fas fa-coffee",
-"fas fa-basketball-ball",
-"fas fa-football-ball",
+"fas fa-basketball-ball"];
+
+cardSetTwo = ["fas fa-football-ball",
 "fas fa-arrow-circle-left",
 "fab fa-fort-awesome-alt",
 "fab fa-playstation",
@@ -43,6 +48,8 @@ gameBoard = ["fab fa-playstation",
 "far fa-heart",
 "fas fa-basketball-ball",
 "fas fa-coffee"];
+
+gameBoard = cardSetOne.concat(cardSetTwo);
 
 iconNames = ["playstation",
 "arrow",
@@ -154,19 +161,30 @@ function starRating(){
     certain amount of tries. Also reduces star count
     variable that shows on win stats.
   */
-
-  if(playerOneTries > 6 || playerTwoTries > 6){
+  //Player one
+  if(playerOneTries > 6){
 
     starsPlayerOne = 2;
-    starsPlayerTwo = 2;
     $(".starsOne").html("&#9733; &#9733;");
-    $(".starsTwo").html("&#9733; &#9733;");
 
-    if(playerOneTries > 9 || playerTwoTries > 9){
+    if(playerOneTries > 9){
 
       starsPlayerOne = 1;
-      starsPlayerTwo = 1;
       $(".starsOne").html("&#9733;");
+
+    }
+
+  }
+
+  //Player two
+  if(playerTwoTries > 6){
+
+    starsPlayerTwo = 2;
+    $(".starsTwo").html("&#9733; &#9733;");
+
+    if(playerTwoTries > 9){
+
+      starsPlayerTwo = 1;
       $(".starsTwo").html("&#9733;");
 
     }
@@ -204,6 +222,18 @@ function playerScores(){
   playerTwoScoreDisplay = $("#score2").text();
 
 }
+function playerTriesCount(){
+
+  /*
+    Takes text content from player tries count
+    and assigns them to id to display on strip
+    next to "Moves".
+  */
+
+  $("#movesOne").text(playerOneTries);
+  $("#movesTwo").text(playerTwoTries);
+
+}
 function winnerAlert(){
 
   /*    
@@ -215,16 +245,17 @@ function winnerAlert(){
 
   $("h1").addClass("winColor");
 
-  $(".winAlert").html("<ul class='winMessage'>\
-  <li class='whoWins'></li>\
-  <li>Time: <span class='winTime'>0:00</span></li>\
-  <li>Stars: <span class='starCount'></span></li>\
-  <li>Moves: <span class='moveCounter'></span></li>\
-  </ul>\
-  <ul class='winMessage'>\
-  <li>Play Again?</li>\
-  <li><button class='playAgain'>Yes</button></li>\
-  </ul>").css("display", "block");
+  $(".winAlert").html(`<ul class='winMessage'>
+  <li class='whoWins'></li>
+  <li>Points: <span class='totalPoints'>0</span></li>
+  <li>Time: <span class='winTime'>0:00</span></li>
+  <li>Stars: <span class='starCount'></span></li>
+  <li>Moves: <span class='moveCounter'></span></li>
+  </ul>
+  <ul class='winMessage'>
+  <li>Play Again?</li>
+  <li><button class='playAgain'>Yes</button></li>
+  </ul>`).css("display", "block");
 
   $(".playAgain").on("click", function(){
     
@@ -246,12 +277,16 @@ function winner(){
 
   if(playerOneScoreDisplay === playerTwoScoreDisplay){
 
+    $(".totalPoints").text(playerOneScoreDisplay);
     $("#message, .whoWins").text("IT'S A TIE!!!");
     $(".winTime").text(time);
+    $(".moveCounter").text(playerTwoTries);
+    $(".starCount").text(starsPlayerTwo);
 
 
   }else if(playerOneScoreDisplay < playerTwoScoreDisplay){
 
+    $(".totalPoints").text(playerTwoScoreDisplay);
     $("#message, .whoWins").text("PLAYER TWO WINS!!!");
     $(".winTime").text(time);
     $(".moveCounter").text(playerTwoTries);
@@ -259,6 +294,7 @@ function winner(){
  
   }else{
 
+    $(".totalPoints").text(playerOneScoreDisplay);
     $("#message, .whoWins").text("PLAYER ONE WINS!!!");
     $(".winTime").text(time);
     $(".moveCounter").text(playerOneTries);
@@ -304,6 +340,7 @@ function checkCards(cards){
     playerToggle();
     playerOneTurn === "selected" ? playerTwoScore++ : playerOneScore++;
     playerOneTurn === "selected" ? playerTwoTries++ : playerOneTries++;
+    playerTriesCount();
     starRating();
     playerScores();
     totalCards+= 2;
@@ -322,6 +359,7 @@ function checkCards(cards){
     setTimeout(removeCards, 700);
     playerToggle();
     playerOneTurn === "selected" ? playerTwoTries++ : playerOneTries++;
+    playerTriesCount();
     starRating();
 
   }  
