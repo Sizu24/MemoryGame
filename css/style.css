@@ -67,7 +67,7 @@ button:hover {
   display: flex;
   width: 100%;
   height: 100%;
-  background: linear-gradient(200deg, #11d9c5 5%, #10485b 100%);
+  background: linear-gradient(to top, #36e7d6 5%, #6597f3 100%);
   /*flex-wrap wraps cards around instead of going down in just 1 line of cards*/
   flex-wrap: wrap;
 }
