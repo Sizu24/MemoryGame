@@ -9,7 +9,7 @@
 }
 body {
 
-  background: #376c72;
+  background: #56b6db;
   margin: 0 auto;
 
 }
@@ -67,7 +67,7 @@ button:hover {
   display: flex;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to top, #36e7d6 5%, #6597f3 100%);
+  background: linear-gradient(to bottom, #33E6DB 5%, #2B8BFC 100%);
   /*flex-wrap wraps cards around instead of going down in just 1 line of cards*/
   flex-wrap: wrap;
 }
